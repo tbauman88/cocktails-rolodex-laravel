@@ -48,4 +48,70 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function drinks(): HasMany
+    {
+        return $this->hasMany(Drink::class);
+    }
+
+    public function ingredients(): BelongsToMany
+    {
+        return $this->belongsToMany(Ingredient::class, 'user_ingredients')->withTimestamps();
+    }
+
+    public function favouriteDrinks(): BelongsToMany
+    {
+        return $this->belongsToMany(Drink::class, 'user_drinks')->withTimestamps();
+    }
+
+    public function toggleDrink(Drink $drink): void
+    {
+        if ($this->favouriteDrinks()->where('drink_id', $drink->id)->exists()) {
+            $this->favouriteDrinks()->detach($drink->id);
+            $drink->decrement('save_count');
+            return;
+        }
+
+        $this->favouriteDrinks()->attach($drink->id);
+        $drink->increment('save_count');
+    }
+
+    public function suggestedCocktails(): Collection
+    {
+        $suggested = Drink::whereDoesntHave('ingredients', function ($query) {
+            $query->whereNotIn('ingredients.id', $this->ingredients->pluck('id')->toArray());
+        })->get();
+
+        dump('suggestedCocktails', $suggested->pluck('name')->toArray());
+
+        return $suggested;
+    }
+
+    public function recommendedCocktails(): Collection
+    {
+        $drinks = Drink::whereHas('ingredients', function ($query) {
+            $query
+                ->whereIn('ingredients.id', $this->ingredients->pluck('id'))
+                ->where('drink_ingredients.required', true);
+        })->get();
+
+        $recommended = $drinks->map(fn($drink) => [
+            'name' => $drink->name,
+            'missing' => $this->getMissingIngredients($drink),
+        ]);
+
+        dump('recommendedCocktails', $recommended->toArray());
+
+        return $recommended;
+    }
+
+    public function getMissingIngredients(Drink $drink): array
+    {
+        return $drink->ingredients()
+            ->wherePivot('required', false)
+            ->whereNotIn('ingredients.id', $this->ingredients->pluck('id')->toArray())
+            ->get()
+            ->pluck('name')
+            ->toArray();
+    }
 }
