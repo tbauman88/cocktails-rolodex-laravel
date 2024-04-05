@@ -2,9 +2,11 @@
 
 namespace Database\Helpers;
 
+use Illuminate\Support\Collection;
+
 class Drinks
 {
-    public static array $ENTITIES = [
+    public static array $COCKTAILS = [
         [
             "name" => "Old Fashioned",
             "ingredients" => [
@@ -88,4 +90,8 @@ class Drinks
         ]
     ];
 
+    public static function entities(): Collection
+    {
+        return collect(self::$COCKTAILS);
+    }
 }

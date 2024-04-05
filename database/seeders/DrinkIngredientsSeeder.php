@@ -16,7 +16,7 @@ class DrinkIngredientsSeeder extends Seeder
 
     public function seedDrinks(User $user): void
     {
-        collect(Drinks::$ENTITIES)->each(function ($entity) use ($user) {
+        Drinks::entities()->each(function ($entity) use ($user) {
             $entity = (object)$entity;
 
             $drink = $user->drinks()->create(['name' => $entity->name]);

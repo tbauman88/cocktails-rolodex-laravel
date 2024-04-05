@@ -2,9 +2,11 @@
 
 namespace Database\Helpers;
 
+use Illuminate\Support\Collection;
+
 class Ingredients
 {
-    public static array $ENTITIES = [
+    public static array $LIQUORS = [
         [
             "name" => "Bourbon",
             "brand" => "Woodford Reserve",
@@ -231,4 +233,30 @@ class Ingredients
             "category" => "Liqueur"
         ]
     ];
+
+    public static array $BITTERS = [
+        [
+            "name" => "Angostura Bitters",
+            "category" => "Bitters"
+        ],
+        [
+            "name" => "Orange Bitters",
+            "category" => "Bitters"
+        ],
+        [
+            "name" => "Peach Bitters",
+            "category" => "Bitters"
+        ],
+        [
+            "name" => "Black Walnut Bitters",
+            "category" => "Bitters"
+        ],
+    ];
+
+    public static array $SYRUPS = [];
+
+    public static function entities(): Collection
+    {
+        return collect(array_merge(self::$LIQUORS, self::$SYRUPS, self::$BITTERS));
+    }
 }

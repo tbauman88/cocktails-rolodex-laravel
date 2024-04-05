@@ -13,8 +13,8 @@ class UserIngredientsSeeder extends Seeder
     {
         $user = User::firstOrFail();
 
-        collect(Ingredients::$ENTITIES)->each(function ($entity) use ($user) {
-            $entity     = (object)$entity;
+        Ingredients::entities()->each(function ($entity) use ($user) {
+            $entity = (object)$entity;
             $ingredient = Ingredient::firstOrCreate(['name' => $entity->name]);
 
             $user->ingredients()->attach(

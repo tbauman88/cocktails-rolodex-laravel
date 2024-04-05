@@ -20,9 +20,6 @@ class Tinker extends Command
         $user->suggestedCocktails()->pluck('name')->toArray();
         $user->recommendedCocktails()->pluck('name')->toArray();
 
-        // Favourite Drinks feature
-        $drink = Drink::where('name', 'Millward Manhattan')->first();
-        $user->toggleDrink($drink);
         dump($user->favouriteDrinks()->get()->toArray());
 
         return self::SUCCESS;
