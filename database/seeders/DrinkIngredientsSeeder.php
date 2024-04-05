@@ -25,16 +25,15 @@ class DrinkIngredientsSeeder extends Seeder
                 $ingredient = (object)$ingredient;
                 $createdIngredient = Ingredient::firstOrCreate(['name' => $ingredient->name]);
 
-                $filter = array_filter([
-                    'amount' => $ingredient->amount,
-                    'amount_unit' => $ingredient->amount_unit ?? 0,
-                    'garnish' => $ingredient->garnish ?? false,
-                    'required' => $ingredient->required ?? false
-                ]);
-
                 $drink->ingredients()->attach(
                     $createdIngredient->id,
-                    $filter
+                    array_filter([
+                        'amount' => $ingredient->amount,
+                        'amount_unit' => $ingredient->amount_unit ?? 0,
+                        'brand' => $ingredient->brand ?? null,
+                        'garnish' => $ingredient->garnish ?? false,
+                        'required' => $ingredient->required ?? false
+                    ])
                 );
             });
         });

@@ -60,7 +60,7 @@ class Drinks
                     "name" => "Sweet Vermouth",
                     "amount" => "0.5",
                     "amount_unit" => "oz",
-                    "brand" => "Cocchi"
+                    "brand" => "Dolin Rouge"
                 ],
                 ["name" => "Cassis", "amount" => "0.5", "amount_unit" => "oz"],
                 ["name" => "Simple Syrup", "amount" => "0.5", "amount_amount_unit" => "oz"],
