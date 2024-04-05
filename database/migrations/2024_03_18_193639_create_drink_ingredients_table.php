@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->tinyText('brand')->nullable();
             $table->boolean('garnish')->default(false);
-            $table->boolean('required')->default(false);
+            $table->boolean('required')->default(true);
 
             $table->unsignedBigInteger('drink_id');
             $table->foreign('drink_id')->references('id')->on('drinks');

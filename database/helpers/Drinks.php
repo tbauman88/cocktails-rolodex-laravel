@@ -26,8 +26,8 @@ class Drinks
         [
             "name" => "Manhattan",
             "ingredients" => [
-                ["name" => "Bourbon", "amount" => "2", "amount_unit" => "oz", "required" => true],
-                ["name" => "Sweet Vermouth", "amount" => "1", "amount_unit" => "oz", "required" => true],
+                ["name" => "Bourbon", "amount" => "2", "amount_unit" => "oz"],
+                ["name" => "Sweet Vermouth", "amount" => "1", "amount_unit" => "oz"],
                 ["name" => "Angostura Bitters", "amount" => "2", "amount_unit" => "dashes"],
                 ["name" => "Maraschino cherry", "amount" => "1", "garnish" => true]
             ]
@@ -76,7 +76,7 @@ class Drinks
             "ingredients" => [
                 ["name" => "Amaro Averna", "amount" => "0.5", "amount_unit" => "oz"],
                 ["name" => "Bourbon", "amount" => "2", "amount_unit" => "oz"],
-                ["name" => "Benedictine", "amount" => "0.5", "amount_unit" => "oz"],
+                ["name" => "Bénédictine", "amount" => "0.5", "amount_unit" => "oz"],
                 ["name" => "Black Walnut Bitters", "amount" => "2", "amount_unit" => "dashes"]
             ]
         ],

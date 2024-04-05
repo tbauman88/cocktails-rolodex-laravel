@@ -175,7 +175,7 @@ class Ingredients
             "category" => "Liqueur"
         ],
         [
-            "name" => "Kahlua",
+            "name" => "Kahlúa",
             "category" => "Liqueur"
         ],
         [
@@ -219,7 +219,8 @@ class Ingredients
             "category" => "Liqueur"
         ],
         [
-            "name" => "Bénédictine & Brandy",
+            "name" => "Bénédictine",
+            "brand" => "Bénédictine & Brandy",
             "category" => "Liqueur"
         ],
         [
@@ -230,6 +231,11 @@ class Ingredients
         [
             "name" => "Cassis",
             "brand" => "Labbe Francois",
+            "category" => "Liqueur"
+        ],
+        [
+            "name" => "Sherry",
+            "brand" => "Lustau",
             "category" => "Liqueur"
         ]
     ];
@@ -253,7 +259,12 @@ class Ingredients
         ],
     ];
 
-    public static array $SYRUPS = [];
+    public static array $SYRUPS = [
+        [
+            "name" => "Simple Syrup",
+            "category" => "Syrup"
+        ],
+    ];
 
     public static function entities(): Collection
     {

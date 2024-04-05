@@ -32,7 +32,7 @@ class DrinkIngredientsSeeder extends Seeder
                         'amount_unit' => $ingredient->amount_unit ?? 0,
                         'brand' => $ingredient->brand ?? null,
                         'garnish' => $ingredient->garnish ?? false,
-                        'required' => $ingredient->required ?? false
+                        'required' => !isset($ingredient->garnish)
                     ])
                 );
             });
