@@ -17,13 +17,13 @@ class Tinker extends Command
         $user = User::query()->first();
 
         // Suggested Cocktails feature
-         $user->suggestedCocktails()->pluck('name')->toArray();
-         $user->recommendedCocktails()->pluck('name')->toArray();
+        $user->suggestedCocktails()->pluck('name')->toArray();
+        $user->recommendedCocktails()->pluck('name')->toArray();
 
         // Favourite Drinks feature
-         $drink = Drink::where('name', 'Millward Manhattan')->first();
-         $user->toggleDrink($drink);
-         dump($user->favouriteDrinks()->get()->toArray());
+        $drink = Drink::where('name', 'Millward Manhattan')->first();
+        $user->toggleDrink($drink);
+        dump($user->favouriteDrinks()->get()->toArray());
 
         return self::SUCCESS;
     }
