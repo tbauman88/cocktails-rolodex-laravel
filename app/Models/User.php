@@ -56,7 +56,9 @@ class User extends Authenticatable
 
     public function ingredients(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class, 'user_ingredients')->withTimestamps();
+        return $this->belongsToMany(Ingredient::class, 'user_ingredients')
+            ->withPivot('brand', 'category', 'sub_category')
+            ->withTimestamps();
     }
 
     public function favouriteDrinks(): BelongsToMany

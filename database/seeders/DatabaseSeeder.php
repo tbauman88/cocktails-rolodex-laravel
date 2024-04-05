@@ -10,9 +10,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersSeeder::class,
-            DrinkIngredientsSeeder::class,
             UserIngredientsSeeder::class,
+            DrinkIngredientsSeeder::class,
         ]);
-
     }
 }
