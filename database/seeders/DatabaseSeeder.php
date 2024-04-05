@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             UserIngredientsSeeder::class,
             DrinkIngredientsSeeder::class,
+            UserDrinksSeeder::class
         ]);
     }
 }
