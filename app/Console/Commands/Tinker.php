@@ -16,11 +16,8 @@ class Tinker extends Command
     {
         $user = User::query()->first();
 
-        // Suggested Cocktails feature
         $user->suggestedCocktails()->pluck('name')->toArray();
         $user->recommendedCocktails()->pluck('name')->toArray();
-
-        dump($user->favouriteDrinks()->get()->toArray());
 
         return self::SUCCESS;
     }

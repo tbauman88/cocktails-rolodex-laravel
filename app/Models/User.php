@@ -84,36 +84,28 @@ class User extends Authenticatable
             $query->whereNotIn('ingredients.id', $this->ingredients->pluck('id')->toArray());
         })->get();
 
-        dump('suggestedCocktails', $suggested->pluck('name')->toArray());
+        dump('suggestedCocktails', $suggested->toArray());
 
         return $suggested;
     }
 
     public function recommendedCocktails(): Collection
     {
-        $drinks = Drink::whereHas('ingredients', function ($query) {
-            $query
-                ->whereIn('ingredients.id', $this->ingredients->pluck('id'))
-                ->where('drink_ingredients.required', true);
-        })->get();
+        $userIngredientIds = $this->ingredients->pluck('id');
 
-        $recommended = $drinks->map(fn($drink) => [
-            'name' => $drink->name,
-            'missing' => $this->getMissingIngredients($drink),
-        ]);
+        $recommended = Drink::whereHas('ingredients', function ($query) use ($userIngredientIds) {
+            $query->whereNotIn('ingredients.id', $userIngredientIds);
+        }, '>', 0)
+            ->with(['ingredients' => fn($query) => $query->whereNotIn('ingredients.id', $userIngredientIds)])
+            ->get()
+            ->map(fn($drink) => [
+                'drink' => $drink->name,
+                'missing_ingredients' => $drink->ingredients->pluck('name')->toArray(),
+            ]);
 
         dump('recommendedCocktails', $recommended->toArray());
 
-        return $recommended;
-    }
 
-    public function getMissingIngredients(Drink $drink): array
-    {
-        return $drink->ingredients()
-            ->wherePivot('required', false)
-            ->whereNotIn('ingredients.id', $this->ingredients->pluck('id')->toArray())
-            ->get()
-            ->pluck('name')
-            ->toArray();
+        return $recommended;
     }
 }

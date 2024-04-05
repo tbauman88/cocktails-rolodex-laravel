@@ -250,10 +250,6 @@ class Ingredients
             "category" => "Bitters"
         ],
         [
-            "name" => "Peach Bitters",
-            "category" => "Bitters"
-        ],
-        [
             "name" => "Black Walnut Bitters",
             "category" => "Bitters"
         ],
