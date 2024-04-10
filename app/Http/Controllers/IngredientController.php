@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IngredientResource;
+use App\Models\Ingredient;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        IngredientResource::$includeDrinks = $request->boolean('includeDrinks');
+
+        return response()->json(IngredientResource::collection(Ingredient::all()));
     }
 
     /**
@@ -22,20 +24,17 @@ class IngredientController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $ingredient = Ingredient::create(['name' => $request->input('name')]);
+        $ingredient->save();
+
+        return response()->json($ingredient, JsonResponse::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        return response()->json(Ingredient::findOrFail($id));
     }
 
     /**
@@ -46,17 +45,14 @@ class IngredientController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        $ingredient = Ingredient::findOrFail($id);
+        $ingredient->update(['name' => $request->input('name')]);
+
+        return response()->json($ingredient);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -6,14 +6,12 @@ use App\Http\Requests\StoreDrinkRequest;
 use App\Http\Resources\DrinkResource;
 use App\Models\Drink;
 use App\Models\Ingredient;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DrinkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResponse
     {
         return response()->json(DrinkResource::collection(Drink::all()));
@@ -55,12 +53,9 @@ class DrinkController extends Controller
         return response()->json(DrinkResource::make($drink), JsonResponse::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        return response()->json(DrinkResource::make(Drink::findOrFail($id)));
     }
 
     /**
@@ -71,19 +66,16 @@ class DrinkController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(string $id): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], JsonResponse::HTTP_NOT_IMPLEMENTED);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        //
+        $drink = Drink::findOrFail($id);
+        $drink->delete();
+
+        return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }
 }

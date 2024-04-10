@@ -7,9 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DrinkResource extends JsonResource
 {
-//    /**
-//     * @return array<int|string, mixed>
-//     */
     public function toArray($request): array
     {
         return [

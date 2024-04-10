@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json(User::all());
     }
 
     /**
@@ -22,20 +21,17 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], JsonResponse::HTTP_NOT_IMPLEMENTED);
+
+        $user = User::create($request->all());
+        return response()->json($user, JsonResponse::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        return response()->json(User::findOrFail($id));
     }
 
     /**
@@ -46,19 +42,21 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        return response()->json(['message' => 'Not implemented'], JsonResponse::HTTP_NOT_IMPLEMENTED);
+
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+
+        return response()->json($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }
 }
