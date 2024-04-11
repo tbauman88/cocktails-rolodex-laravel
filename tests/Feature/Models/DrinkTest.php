@@ -2,16 +2,10 @@
 
 use App\Models\Drink;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
-
-uses(TestCase::class);
-uses(DatabaseTransactions::class);
 
 beforeEach(function () {
     $this->user = User::factory()->create();
 });
-
 
 test('it returns the ingredients for a drink', function () {
     $drink = Drink::factory()->for($this->user)->create(['name' => 'Black Manhattan']);

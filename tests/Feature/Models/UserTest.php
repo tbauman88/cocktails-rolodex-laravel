@@ -3,11 +3,6 @@
 use App\Models\Drink;
 use App\Models\Ingredient;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
-
-uses(TestCase::class);
-uses(DatabaseTransactions::class);
 
 const INGREDIENTS = [
     'Gin',

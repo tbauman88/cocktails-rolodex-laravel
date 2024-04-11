@@ -11,10 +11,14 @@
 |
 */
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
+
 uses(
-    Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
+    TestCase::class,
+    DatabaseTransactions::class,
 )->in('Feature');
+
 
 /*
 |--------------------------------------------------------------------------

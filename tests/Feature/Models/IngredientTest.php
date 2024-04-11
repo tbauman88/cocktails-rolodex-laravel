@@ -3,16 +3,10 @@
 use App\Models\Drink;
 use App\Models\Ingredient;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
-
-uses(TestCase::class);
-uses(DatabaseTransactions::class);
 
 beforeEach(function () {
     $this->user = User::factory()->create();
 });
-
 
 test('it returns the drinks for an ingredient', function () {
     $ingredient = Ingredient::factory()->create(['name' => 'Gin (Tanqueray)']);
