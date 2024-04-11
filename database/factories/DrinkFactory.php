@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Drink;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,6 +16,11 @@ class DrinkFactory extends Factory
         return [
             "name" => $this->faker->unique()->words(rand(1, 6), true),
         ];
+    }
+
+    public function user(): static
+    {
+        return $this->state(fn(array $attributes) => ['user_id' => User::factory()->create()->getKey()]);
     }
 
     public function published(): static
