@@ -80,11 +80,16 @@ class User extends Authenticatable
 
     public function suggestedCocktails(): Collection
     {
-        $suggested = Drink::whereDoesntHave('ingredients', function ($query) {
-            $query->whereNotIn('ingredients.id', $this->ingredients->pluck('id')->toArray());
-        })->get();
+        $userIngredientIds = $this->ingredients->pluck('id');
 
-        dump('suggestedCocktails', $suggested->toArray());
+        $suggested = Drink::query()
+            ->whereHas('ingredients', function ($query) use ($userIngredientIds) {
+                $query->whereIn('ingredients.id', $userIngredientIds);
+            })
+            ->whereDoesntHave('ingredients', function ($query) use ($userIngredientIds) {
+                $query->whereNotIn('ingredients.id', $userIngredientIds);
+            })
+            ->get();
 
         return $suggested;
     }
@@ -93,18 +98,14 @@ class User extends Authenticatable
     {
         $userIngredientIds = $this->ingredients->pluck('id');
 
-        $recommended = Drink::whereHas('ingredients', function ($query) use ($userIngredientIds) {
-            $query->whereNotIn('ingredients.id', $userIngredientIds);
-        }, '>', 0)
-            ->with(['ingredients' => fn($query) => $query->whereNotIn('ingredients.id', $userIngredientIds)])
-            ->get()
-            ->map(fn($drink) => [
-                'drink' => $drink->name,
-                'missing_ingredients' => $drink->ingredients->pluck('name')->toArray(),
-            ]);
-
-        dump('recommendedCocktails', $recommended->toArray());
-
+        $recommended = Drink::query()
+            ->whereHas('ingredients', function ($query) use ($userIngredientIds) {
+                $query->whereNotIn('ingredients.id', $userIngredientIds);
+            }, '>', 0)
+            ->with('ingredients', function ($query) use ($userIngredientIds) {
+                $query->whereNotIn('ingredients.id', $userIngredientIds);
+            })
+            ->get();
 
         return $recommended;
     }
