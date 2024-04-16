@@ -56,7 +56,7 @@ describe('recommendedCocktails', function () {
         attachUserIngredients($this->user);
 
         $actual = $this->user->recommendedCocktails();
-        expect($actual)->toHaveCount(1);
+        expect($actual)->toHaveCount(7);
     });
 });
 

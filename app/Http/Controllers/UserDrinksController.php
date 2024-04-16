@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DrinkResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,6 @@ class UserDrinksController extends Controller
             default => $user->drinks,
         };
 
-        return response()->json($drinks);
+        return response()->json(DrinkResource::collection($drinks));
     }
 }

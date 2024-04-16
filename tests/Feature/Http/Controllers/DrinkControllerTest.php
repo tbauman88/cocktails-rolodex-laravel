@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 test('it returns all drinks', function () {
     $existingDrinks = Drink::all();
-    $drinks = Drink::factory(5)->create();
+    $drinks = Drink::factory(5)->user()->create();
 
     $expectedCount = $existingDrinks->count() + $drinks->count();
 
@@ -49,7 +49,7 @@ test('it returns not implemented when trying to update a drink', function () {
 })->skip('Not implemented');
 
 test('it deletes a drink', function () {
-    $drink = Drink::factory()->create();
+    $drink = Drink::factory()->user()->create();
 
     $this
         ->delete(route('drinks.destroy', ['drink' => $drink->getKey()]))
