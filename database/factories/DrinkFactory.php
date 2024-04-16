@@ -14,7 +14,7 @@ class DrinkFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => $this->faker->unique()->words(rand(1, 6), true),
+            "name" => 'Drink: ' . $this->faker->unique()->words(rand(1, 6), true),
         ];
     }
 

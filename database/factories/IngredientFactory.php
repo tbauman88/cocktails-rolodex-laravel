@@ -13,7 +13,7 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => $this->faker->unique()->words(rand(1, 3), true),
+            "name" => 'Ingredient: ' . $this->faker->unique()->words(rand(1, 3), true),
         ];
     }
 }
