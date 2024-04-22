@@ -12,9 +12,16 @@ use Illuminate\Http\Request;
 
 class DrinkController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return response()->json(DrinkResource::collection(Drink::all()));
+        $searchTerm = $request->input('search');
+
+        $drinks = Drink::query()
+            ->where('name', 'LIKE', "%{$searchTerm}%")
+            ->get();
+
+
+        return response()->json(DrinkResource::collection($drinks));
     }
 
     /**

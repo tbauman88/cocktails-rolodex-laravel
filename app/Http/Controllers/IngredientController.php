@@ -11,9 +11,15 @@ class IngredientController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        IngredientResource::$includeDrinks = $request->boolean('includeDrinks');
+        $searchTerm = $request->input('search');
 
-        return response()->json(IngredientResource::collection(Ingredient::all()));
+        $ingredients = Ingredient::query()
+            ->where('name', 'LIKE', "%{$searchTerm}%")
+            ->get();
+
+        IngredientResource::$includeDrinks = $request->boolean('includeDrinks', true);
+
+        return response()->json(IngredientResource::collection($ingredients));
     }
 
     /**
